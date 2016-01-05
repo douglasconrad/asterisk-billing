@@ -1,0 +1,29 @@
+{
+  "author": "Douglas Conrad <douglas.conrad@opens.com.br>",
+  "name": "asterisk-billing",
+  "description": "A way to genarate an external billing system for asterisk",
+  "license": "Apache-2.0",
+  "version": "1.0.0",
+  "homepage": "http://github.com/douglasconrad/asterisk-billing",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/douglasconrad/asterisk-billing.git"
+  },
+  "main": "index.js",
+  "keywords": [
+    "billing",
+    "queue",
+    "asterisk",
+    "worker"
+  ],
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "dependencies": {
+    "ioredis": "^1.8.0",
+    "request": "latest",
+    "asterisk-manager": "latest",
+    "util": "latest",
+    "rx": "latest"
+  }
+}
