@@ -8,6 +8,12 @@
  **/
 var ami = new require('asterisk-manager')('5038','localhost', 'snep', 'sneppass', true);
 
+var mysql = require('mysql');
+
+var abilling = require('./lib/');
+
+var connection = abilling.mysql(mysql);
+
 var Rx = require('rx');
 var util = require('util');
 
@@ -68,16 +74,28 @@ var joinall = Rx.Observable.zip(
     		call.uniqueid = source[0].uniqueid;
     		call.linkedid = source[1].uniqueid;
     		call.status = source[1].status;
-		call.billsec = (call.hangupdate - call.date) / 1000;
+		    call.billsec = (call.hangupdate - call.date) / 1000;
   		return call;
 });
 
 // Doing subscription for this events and do something with them
 var subhangup = joinall.subscribe(
 	function(x){
-	   if(x.linkedid == x.uniqueid){
-		console.log("Hangup in subscribe:" + JSON.stringify(x));
-	   }
+	  if(x.linkedid == x.uniqueid){
+      var bill = {
+        callid: x.uniqueid,
+        calldate: x.date,
+        src: x.from,
+        srcname: x.fromname,
+        dst: x.to,
+        dstname: x.toname,
+        status: x.status,
+        billsec: x.billsec,
+        duration: x.billsec
+      }
+      var savecdr = require('./lib/').savecdr(abilling,connection,bill);
+		  console.log("Hangup in subscribe:" + JSON.stringify(x));
+	  }
 	},
 	function(err){
 		console.log("Hangup Error in:" + JSON.stingify(err));
