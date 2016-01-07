@@ -22,8 +22,15 @@ ami.keepConnected();
 
 // NewChannel event Observable
 var source = Rx.Observable.create( function(observer) {
-
+  console.log("Starting the observer for now calls");
 	ami.on('newchannel', function(evt) {
+        if(evt.linkedid == evt.uniqueid){
+          console.log("New call detected: {from:%s , name:%s, to:%s}", 
+          JSON.stringify(evt.calleridnum),
+          JSON.stringify(evt.calleridname),
+          JSON.stringify(evt.exten));  
+        }
+        
     		observer.onNext(evt);
 	})
 })
@@ -34,6 +41,26 @@ var source = Rx.Observable.create( function(observer) {
     call.date = date;
   return call;
 });
+
+var newstate = Rx.Observable.create( function(observer){
+  ami.on('newstate', function(evt){
+    if(evt.channelstate != "6"){
+      observer.onNext(evt);  
+    }
+  })
+})
+.map(function(x){
+  var call = {};
+  if(x.uniqueid == x.linkedid){
+    console.log("Newstate: %s", JSON.stringify(x));
+    if(x.channelstate == "6"){
+        call.answerdate = new Date();
+        call.from = x.calleridnum;
+      console.log("Call Answered at: %s", JSON.stringify(call));
+    }
+  }
+  return call;
+})
 
 // Hangup event Observable
 var hangup = Rx.Observable.create( function(observer) {
@@ -54,17 +81,19 @@ var hangup = Rx.Observable.create( function(observer) {
     call2.toname = x.connectedlinename;
     call2.hangupdate = date;
     call2.status = x.channelstate;
+  console.log("Call Ended: %s", JSON.stringify(call2));
   return call2;
 });
 
-// Join two Observables (Newchannel and Hangup)
+// Join three Observables (Newchannel, Answered and Hangup)
 var joinall = Rx.Observable.zip(
 	source,
-	hangup
+	hangup,
+  newstate
 )
 	.map(function(source){
+    console.log("Joined: %s", JSON.stringify(source));
 		var call = {};
-		//call = source;
     		call.from = source[1].from;
     		call.fromname = source[1].fromname;
     		call.to = source[1].to;
@@ -74,7 +103,9 @@ var joinall = Rx.Observable.zip(
     		call.uniqueid = source[0].uniqueid;
     		call.linkedid = source[1].uniqueid;
     		call.status = source[1].status;
-		    call.billsec = (call.hangupdate - call.date) / 1000;
+		    call.billsec = (call.hangupdate - source[2].answerdate) / 1000;
+        if(call.billsec == ""){ call.billsec = 0; }
+        call.duration = (call.hangupdate - call.date) / 1000;
   		return call;
 });
 
@@ -91,14 +122,14 @@ var subhangup = joinall.subscribe(
         dstname: x.toname,
         status: x.status,
         billsec: x.billsec,
-        duration: x.billsec
+        duration: x.duration
       }
       var savecdr = require('./lib/').savecdr(abilling,connection,bill);
 		  console.log("Hangup in subscribe:" + JSON.stringify(x));
 	  }
 	},
 	function(err){
-		console.log("Hangup Error in:" + JSON.stingify(err));
+		console.log("Hangup Error in:" + JSON.stringify(err));
 	},
 	function(y){
 		console.log("Hangup Done:" + JSON.stringify(y));
