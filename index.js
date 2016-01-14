@@ -38,6 +38,7 @@ var source = Rx.Observable.create( function(observer) {
   var date = new Date();
   var call = {};
     call = x;
+    call.to = x.exten;
     call.date = date;
   return call;
 });
@@ -52,8 +53,9 @@ var newstate = Rx.Observable.create( function(observer){
 .map(function(x){
   var call = {};
   if(x.uniqueid == x.linkedid){
-    console.log("Newstate: %s", JSON.stringify(x));
-    if(x.channelstate == "6"){
+    console.log("Newstate in a monitored channel: %s - %s for channel %s", x.channelstate,x.channelstatedesc,x.channel);
+    call.newstatedate = new Date();
+    if(x.channelstate == 6){
         call.answerdate = new Date();
         call.from = x.calleridnum;
       console.log("Call Answered at: %s", JSON.stringify(call));
@@ -96,15 +98,19 @@ var joinall = Rx.Observable.zip(
 		var call = {};
     		call.from = source[1].from;
     		call.fromname = source[1].fromname;
-    		call.to = source[1].to;
-    		call.toname = source[1].toname;
+        call.to = source[1].to;
+        if (call.to === "<unknown>") {
+          call.to = source[0].to;
+        };
+        call.toname = source[1].toname;
     		call.hangupdate = source[1].hangupdate;
     		call.date = source[0].date;
+        call.answerdate = source[2].answerdate;
     		call.uniqueid = source[0].uniqueid;
     		call.linkedid = source[1].uniqueid;
     		call.status = source[1].status;
 		    call.billsec = (call.hangupdate - source[2].answerdate) / 1000;
-        if(call.billsec == ""){ call.billsec = 0; }
+        if(!call.billsec){ call.billsec = 0; }
         call.duration = (call.hangupdate - call.date) / 1000;
   		return call;
 });
@@ -124,7 +130,8 @@ var subhangup = joinall.subscribe(
         billsec: x.billsec,
         duration: x.duration
       }
-      var savecdr = require('./lib/').savecdr(abilling,connection,bill);
+      //var savecdr = require('./lib/').savecdr(abilling,connection,bill);
+      var savecdr = abilling.savecdr(abilling,connection,bill);
 		  console.log("Hangup in subscribe:" + JSON.stringify(x));
 	  }
 	},
