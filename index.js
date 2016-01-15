@@ -45,7 +45,7 @@ var source = Rx.Observable.create( function(observer) {
 
 var newstate = Rx.Observable.create( function(observer){
   ami.on('newstate', function(evt){
-    if(evt.channelstate != "6"){
+    if(evt.channelstate == 6){
       observer.onNext(evt);  
     }
   })
@@ -53,14 +53,14 @@ var newstate = Rx.Observable.create( function(observer){
 .map(function(x){
   var call = {};
   if(x.uniqueid == x.linkedid){
-    console.log("Newstate in a monitored channel: %s - %s for channel %s", x.channelstate,x.channelstatedesc,x.channel);
     call.newstatedate = new Date();
     if(x.channelstate == 6){
-        call.answerdate = new Date();
+        call.answerdate = call.newstatedate;
         call.from = x.calleridnum;
-      console.log("Call Answered at: %s", JSON.stringify(call));
+        console.log("Call Answered at: %s", JSON.stringify(call));
     }
   }
+  console.log("Newstate in a monitored channel: %s", JSON.stringify(call));
   return call;
 })
 
