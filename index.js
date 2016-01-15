@@ -1,11 +1,4 @@
-/**
- * port:  port server
- * host: host server
- * username: username for authentication
- * password: username's password for authentication
- * events: this parameter determines whether events are emited.
- * 187.103.106.67 snep-dev server and 54.94.235.38 conector.opens.com.br
- **/
+// set the credentials to access Asterism Manager Interface
 var ami = new require('asterisk-manager')('5038','localhost', 'snep', 'sneppass', true);
 
 var mysql = require('mysql');

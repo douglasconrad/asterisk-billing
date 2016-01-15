@@ -1,8 +1,10 @@
 CREATE DATABASE billing;
 
+USE billing;
+
 CREATE TABLE IF NOT EXISTS `cdr` (
   `id` INTEGER PRIMARY KEY AUTO_INCREMENT,
-  `callid` int(50) NOT NULL,
+  `callid` varchar(32) NOT NULL,
   `calldate` datetime NOT NULL default '0000-00-00 00:00:00',
   `srcname` varchar(80) NOT NULL default '',
   `src` varchar(80) NOT NULL default '',
