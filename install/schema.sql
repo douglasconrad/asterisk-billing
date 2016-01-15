@@ -14,3 +14,12 @@ CREATE TABLE IF NOT EXISTS `cdr` (
   `duration` int(11) NOT NULL default '0',
   `billsec` int(11) NOT NULL default '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE IF NOT EXISTS `webhooks` (
+  `id` INTEGER PRIMARY KEY AUTO_INCREMENT,
+  `name` varchar(32) NOT NULL,
+  `url` varchar(50) NOT NULL,
+  `status` varchar(10) NOT NULL default 'active',
+  `method` varchar(10) NOT NULL default 'GET'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

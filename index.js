@@ -1,11 +1,18 @@
-// set the credentials to access Asterism Manager Interface
+/**
+ * port:  port server
+ * host: host server
+ * username: username for authentication
+ * password: username's password for authentication
+ * events: this parameter determines whether events are emited.
+ * 187.103.106.67 snep-dev server and 54.94.235.38 conector.opens.com.br
+ **/
 var ami = new require('asterisk-manager')('5038','localhost', 'snep', 'sneppass', true);
 
 var mysql = require('mysql');
 
-var abilling = require('./lib/');
+global.abilling = require('./lib/');
 
-var connection = abilling.mysql(mysql);
+global.connection = abilling.mysql(mysql);
 
 var Rx = require('rx');
 var util = require('util');
@@ -123,8 +130,8 @@ var subhangup = joinall.subscribe(
         billsec: x.billsec,
         duration: x.duration
       }
-      //var savecdr = require('./lib/').savecdr(abilling,connection,bill);
-      var savecdr = abilling.savecdr(abilling,connection,bill);
+      //var savecdr = require('./lib/').savecdr(bill);
+      var savecdr = abilling.savecdr(bill);
 		  console.log("Hangup in subscribe:" + JSON.stringify(x));
 	  }
 	},
