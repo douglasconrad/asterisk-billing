@@ -78,18 +78,16 @@ root@snep-3-demo:/var/www/html/asterisk-billing# node index.js
 ```
 Starting the observer for now calls
 
-New call detected: {from:"1008" , name:"Ramal 1008", to:"191"}
+New call monitored: {"callid":"1453484354.47","calldate":"2016-01-22T17:39:14.629Z","from":"1008","fromname":"Ramal 1008","to":"4891613166","route":"local","dstchannel":"","channel":"SIP/1008-0000002d","status":"0","linkedid":"1453484354.47","toname":"<unknown>"}
 
-Call Answered at: {"newstatedate":"2016-01-15T14:18:48.157Z","answerdate":"2016-01-15T14:18:48.157Z","from":"1008"}
-Newstate in a monitored channel: {"newstatedate":"2016-01-15T14:18:48.157Z","answerdate":"2016-01-15T14:18:48.157Z","from":"1008"}
+New channel in a already monitored call: {"callid":"1453484354.47","calldate":"2016-01-22T17:39:14.629Z","from":"1008","fromname":"Ramal 1008","to":"4891613166","route":"SIP/192.168.10.252","dstchannel":"SIP/192.168.10.252-0000002e","channel":"SIP/1008-0000002d","status":"0","linkedid":"1453484354.48","toname":"<unknown>"}
 
-Call Ended: {"uniqueid":"1452867523.89","from":"1008","fromname":"Ramal 1008","to":"<unknown>","toname":"<unknown>","hangupdate":"2016-01-15T14:18:54.989Z","status":"6"}
+Call was ANSWERED: {"event":"Newstate","privilege":"call,all","channel":"SIP/1008-0000002d","channelstate":"6","channelstatedesc":"Up","calleridnum":"1008","calleridname":"Ramal 1008","connectedlinenum":"<unknown>","connectedlinename":"<unknown>","language":"pt_BR","accountcode":"2","context":"default","exten":"4891613166","priority":"9","uniqueid":"1453484354.47","linkedid":"1453484354.47"}
 
-Joined: [{"event":"Newchannel","privilege":"call,all","channel":"SIP/1008-00000059","channelstate":"0","channelstatedesc":"Down","calleridnum":"1008","calleridname":"Ramal 1008","connectedlinenum":"<unknown>","connectedlinename":"<unknown>","language":"en","accountcode":"","context":"default","exten":"191","priority":"1","uniqueid":"1452867523.89","linkedid":"1452867523.89","to":"191","date":"2016-01-15T14:18:43.687Z"},{"uniqueid":"1452867523.89","from":"1008","fromname":"Ramal 1008","to":"<unknown>","toname":"<unknown>","hangupdate":"2016-01-15T14:18:54.989Z","status":"6"},{"newstatedate":"2016-01-15T14:18:48.157Z","answerdate":"2016-01-15T14:18:48.157Z","from":"1008"}]
+Getting all Webhooks configured...
 
-Hangup in subscribe:{"from":"1008","fromname":"Ramal 1008","to":"191","toname":"<unknown>","hangupdate":"2016-01-15T14:18:54.989Z","date":"2016-01-15T14:18:43.687Z","answerdate":"2016-01-15T14:18:48.157Z","uniqueid":"1452867523.89","linkedid":"1452867523.89","status":"6","billsec":6.832,"duration":11.302}
-
-Sending to Webhook: http://demo.opens.com.br/post2/
-
-{"statusCode":200,"body":{"status":"Ok"},"headers":{"date":"Fri, 15 Jan 2016 14:18:55 GMT","server":"Apache/2.2.22 (Debian)","x-powered-by":"PHP/5.4.45-0+deb7u1","vary":"Accept-Encoding","content-length":"15","connection":"close","content-type":"text/html"},"request":{"uri":{"protocol":"http:","slashes":true,"auth":null,"host":"demo.opens.com.br","port":80,"hostname":"demo.opens.com.br","hash":null,"search":null,"query":null,"pathname":"/post2/","path":"/post2/","href":"http://demo.opens.com.br/post2/"},"method":"GET","headers":{"accept":"application/json","content-type":"application/json","content-length":181}}}
+Closing billing:{"callid":"1453484354.47","calldate":"2016-01-22T17:39:14.629Z","from":"1008","fromname":"Ramal 1008","to":"4891613166","route":"SIP/192.168.10.252","dstchannel":"SIP/192.168.10.252-0000002e","channel":"SIP/1008-0000002d","status":"6","linkedid":"1453484354.48","toname":"<unknown>","answerdate":"2016-01-22T17:39:28.602Z","hangupdate":"2016-01-22T17:39:36.530Z","duration":"22","billsec":"8"}
+<=======================================================>
+Sending to webhook Opens Cloud through URL http://demo.opens.com.br/post2/ METHOD POST
+{"statusCode":200,"body":{"status":"Ok"},"headers":{"date":"Fri, 22 Jan 2016 17:39:36 GMT","server":"Apache/2.2.22 (Debian)","x-powered-by":"PHP/5.4.45-0+deb7u1","vary":"Accept-Encoding","content-length":"15","connection":"close","content-type":"text/html"},"request":{"uri":{"protocol":"http:","slashes":true,"auth":null,"host":"demo.opens.com.br","port":80,"hostname":"demo.opens.com.br","hash":null,"search":null,"query":null,"pathname":"/post2/","path":"/post2/","href":"http://demo.opens.com.br/post2/"},"method":"POST","headers":{"accept":"application/json","content-type":"application/json","content-length":393}}}
 ```
