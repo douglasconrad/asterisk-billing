@@ -20,7 +20,6 @@
     "node": ">=0.10.0"
   },
   "dependencies": {
-    "ioredis": "^1.8.0",
     "request": "latest",
     "asterisk-manager": "latest",
     "util": "latest",
