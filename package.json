@@ -9,6 +9,11 @@
     "type": "git",
     "url": "git://github.com/douglasconrad/asterisk-billing.git"
   },
+	"scripts": {  
+		"start" : "node_modules/forever/bin/forever start -l billing.log -a index.js" ,
+		"stop" : "node_modules/forever/bin/forever stop index.js",
+		"status" : "node_modules/forever/bin/forever list" 
+	},
   "main": "index.js",
   "keywords": [
     "billing",
@@ -20,7 +25,7 @@
     "node": ">=0.10.0"
   },
   "dependencies": {
-    "ioredis": "^1.8.0",
+    "forever": "latest",
     "request": "latest",
     "asterisk-manager": "latest",
     "util": "latest",

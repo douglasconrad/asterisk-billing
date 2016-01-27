@@ -10,11 +10,20 @@ CREATE TABLE IF NOT EXISTS `cdr` (
   `src` varchar(80) NOT NULL default '',
   `dst` varchar(80) NOT NULL default '',
   `dstname` varchar(80) NOT NULL default '',
-  `status` varchar(20) NOT NULL default '',
+  `status` int(2) NOT NULL default '0',
+  `statusdesc` varchar(20) NOT NULL default 'NO ANSWER',
   `duration` int(11) NOT NULL default '0',
   `billsec` int(11) NOT NULL default '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE IF NOT EXISTS `callstatus` (
+  `id` INT(2) PRIMARY KEY,
+  `name` varchar(20)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `callstatus` (`id`,`name`) VALUES ('0','NO ANSWER');
+INSERT INTO `callstatus` (`id`,`name`) VALUES ('7','BUSY');
+INSERT INTO `callstatus` (`id`,`name`) VALUES ('6','ANSWERED');
 
 CREATE TABLE IF NOT EXISTS `webhooks` (
   `id` INTEGER PRIMARY KEY AUTO_INCREMENT,
