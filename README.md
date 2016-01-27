@@ -5,7 +5,7 @@ Development a billing to PBX Systems based on Asterisk. It will have at least tw
 
 The Billing Daemon will be compatible with any Asterisk System over 1X version and work independent from the Manager Interface, having an API to communicate with it.
 
-The Manager Interface will be compatible with SNEP 3.X version and works like a SNEP module.
+The Manager Interface will be compatible with SNEP 3.X version and works like a SNEP module, but the Billing Daemon will allow you developer your own frontend for any PBX Frontend Systems, reading the data directly from the database or developing one webservice to receive the webhook from the daemon after every call with a JSON bill.
 
 The Billing Daemon will have the capacity to send to an external Webhook all bills, creating the capability to intergrate with any Application.
 
