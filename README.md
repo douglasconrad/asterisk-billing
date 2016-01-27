@@ -63,12 +63,23 @@ It's DONE.
 
 Into work diretory, run:
 ```
-node index.js
+npm start
 ```
 
-If you want run it in background mode, you can use nohup:
+The logs will be saved into "$HOME/.forever/billing.log"
+
+### Stoping process ###
+
+Into work directory, run:
 ```
-nohup node index.js &
+npm stop
+```
+
+### Listing Running process ###
+
+Into work directory, run:
+```
+npm run-script status
 ```
 
 ### Asterisk-billing in Action ###
