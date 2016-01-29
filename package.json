@@ -29,6 +29,7 @@
     "request": "latest",
     "asterisk-manager": "latest",
     "util": "latest",
+    "bunyan": "latest",
     "rx": "latest"
   }
 }
