@@ -1,5 +1,11 @@
+var request = require('superagent');
+var connect = require('connect');
+var http = require('http');
+var bodyParser = require('body-parser');
 var bunyan = require('bunyan');
-var log = bunyan.createLogger({
+global.q = require('q');
+var port = 3100;
+global.log = bunyan.createLogger({
 	name: "asterisk-billing",
 	streams:
     [
@@ -29,7 +35,29 @@ var util = require('util');
 ami.keepConnected();
 
 log.info("Starting the observer for now calls");
+var app = connect()
+app.use(bodyParser.json());
+app.use('/report', function(req, res){
+    log.info('Received request for: %s', JSON.stringify(req.body));
+    if(req.body){
+        promise = abilling.search(req.body);
+        promise.then(
+            function(result){
+                res.end(JSON.stringify(result));
+            },
+            function(err){
+                res.end(err);
+            });    
+    }else{
+        result = {return: null};
+        res.end(JSON.stringify(result));
+    }
+    
+});
 
+//create node.js http server and listen on port
+http.createServer(app).listen(port);
+log.info("server listening on http://*:%s/report", port);
 
 var newchannel = Rx.Observable.fromEvent(ami,'newchannel');
 var newstate = Rx.Observable.fromEvent(ami,'newstate');	
@@ -188,4 +216,5 @@ function savebill(bill){
 		return;
 	}
 }
+
 

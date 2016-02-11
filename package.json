@@ -30,6 +30,11 @@
     "asterisk-manager": "latest",
     "util": "latest",
     "bunyan": "latest",
-    "rx": "latest"
+    "rx": "latest",
+    "superagent": "latest",
+    "connect": "latest",
+    "body-parser": "latest",
+    "q": "latest",
+    "http": "latest"
   }
 }
