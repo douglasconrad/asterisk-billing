@@ -82,6 +82,18 @@ Into work directory, run:
 npm run-script status
 ```
 
+### Billing format ###
+
+The billing format that will be send to webhook have this structure:
+```
+{'id':'1','main call informations keys':'main call information values',callflow:[
+        {'id':'2','calls on the bridge informations keys':'calls on the bridge informations value'},
+        {'id':'N','calls on the bridge informations keys':'calls on the bridge informations value'},
+]}
+```
+
+You can see the complete structure in the samples/bill.json
+
 ### Asterisk-billing in Action ###
 
 root@snep-3-demo:/var/www/html/asterisk-billing# node index.js 
