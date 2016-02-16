@@ -35,6 +35,8 @@
     "connect": "latest",
     "body-parser": "latest",
     "q": "latest",
-    "http": "latest"
+    "http": "latest",
+    "ini": "latest",
+    "fs": "latest"
   }
 }

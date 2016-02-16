@@ -30,27 +30,23 @@ Now enter into directory and adjust the Asterisk Manager Interface credentials:
 cd asterisk-billing
 ```
 
-Edit index.js and set credentials:
+Edit config.ini and set your asterisk and database credentials:
 ```
-// set the credentials to access Asterism Manager Interface
-var ami = new require('asterisk-manager')('5038','localhost', 'snep', 'sneppass', true);
+; asterisk configs and credentials
+[asterisk]
+amihost = localhost
+amiuser = snep
+amipassword = sneppass
+amiport = 5038
+
+; database configs and credentials
+[database]
+host = localhost
+user = snep
+password = sneppass
+database = billing
 ```
 
-Set your database. By default asterisk-billing create one database called "billing", if you need change it, edit "lib/index.js" and adjust it.
-
-You will need adjust MySQL access too in the same file.
-
-```
-export.smysql = function(mysql){
-        var connection = mysql.createConnection({
-                host     : 'localhost',
-                user     : 'snep',
-                password : 'sneppass',
-                database : 'billing'
-        })
-        return connection;
-}
-```
 
 Create you Database and Schema:
 ```
