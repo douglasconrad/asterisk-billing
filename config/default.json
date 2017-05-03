@@ -1,0 +1,36 @@
+{
+    "env": "development",
+    "name": "asterisk-billing",
+    "port": 3000,
+    "asterisk": {
+      "amihost": "127.0.0.1",
+      "amiport": 5038,
+      "amiuser": "snep",
+      "amipassword": "sneppass"
+    },
+    "database":"mongo",
+    "mysql": {
+      "host": "localhost",
+      "user": "snep",
+      "password": "sneppass",
+      "database": "billing"
+    },
+    "mongo": {
+      "host":"localhost",
+      "port":"27017",
+      "db": "abilling",
+      "collections": {
+        "cdr": "cdr",
+        "callflow": "callflow"
+      }
+    },
+    "api_conector_url": "http://demo.opens.com.br/post2/",
+    "notity": "no",
+    "liveReload": {
+      "port": 35729
+    },
+    "credit": {
+      "initialLimit": 100,
+      "initialDays": 1
+    }
+}

@@ -9,11 +9,11 @@
     "type": "git",
     "url": "git://github.com/douglasconrad/asterisk-billing.git"
   },
-	"scripts": {  
-		"start" : "node_modules/forever/bin/forever start -l billing.log -a index.js" ,
-		"stop" : "node_modules/forever/bin/forever stop index.js",
-		"status" : "node_modules/forever/bin/forever list" 
-	},
+  "scripts": {
+    "start": "node_modules/forever/bin/forever start -l billing.log -a index.js",
+    "stop": "node_modules/forever/bin/forever stop index.js",
+    "status": "node_modules/forever/bin/forever list"
+  },
   "main": "index.js",
   "keywords": [
     "billing",
@@ -25,18 +25,21 @@
     "node": ">=0.10.0"
   },
   "dependencies": {
-    "forever": "latest",
-    "request": "latest",
     "asterisk-manager": "latest",
-    "util": "latest",
-    "bunyan": "latest",
-    "rx": "latest",
-    "superagent": "latest",
-    "connect": "latest",
     "body-parser": "latest",
-    "q": "latest",
+    "bunyan": "latest",
+    "config": "^1.20.1",
+    "connect": "latest",
+    "forever": "latest",
+    "fs": "latest",
     "http": "latest",
     "ini": "latest",
-    "fs": "latest"
+    "node-datetime": "latest",
+    "q": "latest",
+    "request": "latest",
+    "rx": "latest",
+    "superagent": "latest",
+    "util": "latest",
+    "uuid": "latest"
   }
 }

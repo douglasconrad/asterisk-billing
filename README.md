@@ -22,7 +22,7 @@ apt-get insall node
 
 After that, download this code to your work directory, like this:
 ```
-git clone git@github.com:douglasconrad/asterisk-billing.git 
+git clone git@github.com:douglasconrad/asterisk-billing.git
 ```
 
 Now enter into directory and adjust the Asterisk Manager Interface credentials:
@@ -30,27 +30,26 @@ Now enter into directory and adjust the Asterisk Manager Interface credentials:
 cd asterisk-billing
 ```
 
-Edit config.ini and set your asterisk and database credentials:
+Edit config/default.json and set your asterisk and database credentials:
 ```
-; asterisk configs and credentials
-[asterisk]
-amihost = localhost
-amiuser = snep
-amipassword = sneppass
-amiport = 5038
-
-; database configs and credentials
-[database]
-host = localhost
-user = snep
-password = sneppass
-database = billing
+"asterisk": {
+  "amihost": "127.0.0.1",
+  "amiport": 5038,
+  "amiuser": "snep",
+  "amipassword": "sneppass"
+},
+"database": {
+  "host": "localhost",
+  "user": "snep",
+  "password": "sneppass",
+  "database": "billing"
+}
 ```
 
 
 Create you Database and Schema:
 ```
-mysql -uusername -ppassword billing < install/schema.sql
+mysql -uusername -ppassword < install/schema.sql
 ```
 
 It's DONE.
@@ -92,7 +91,7 @@ You can see the complete structure in the samples/bill.json
 
 ### Asterisk-billing in Action ###
 
-root@snep-3-demo:/var/www/html/asterisk-billing# node index.js 
+root@snep-3-demo:/var/www/html/asterisk-billing# node index.js
 
 ```
 Starting the observer for now calls

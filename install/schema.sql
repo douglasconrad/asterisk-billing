@@ -4,6 +4,7 @@ USE billing;
 
 CREATE TABLE IF NOT EXISTS `cdr` (
   `id` INTEGER PRIMARY KEY AUTO_INCREMENT,
+  `uuid` varchar(100),
   `callid` varchar(32) NOT NULL,
   `calldate` datetime NOT NULL default '0000-00-00 00:00:00',
   `srcname` varchar(80) NOT NULL default '',
@@ -19,6 +20,7 @@ CREATE TABLE IF NOT EXISTS `cdr` (
 
 CREATE TABLE IF NOT EXISTS `callflow` (
   `id` INTEGER PRIMARY KEY AUTO_INCREMENT,
+  `uuid` varchar(100),
   `uniqueid` varchar(32) NOT NULL,
   `callid` varchar(32) NOT NULL,
   `calldate` datetime NOT NULL default '0000-00-00 00:00:00',
@@ -33,6 +35,11 @@ CREATE TABLE IF NOT EXISTS `callflow` (
 CREATE TABLE IF NOT EXISTS `callstatus` (
   `id` INT(2) PRIMARY KEY,
   `name` varchar(20)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `uuid` (
+  `uuid` varchar(100) PRIMARY KEY,
+  `date` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `callstatus` (`id`,`name`) VALUES ('0','NO ANSWER');
