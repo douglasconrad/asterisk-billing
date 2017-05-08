@@ -1,18 +1,24 @@
 # asterisk-billing
 
-### Goals ###
-Development a billing to PBX Systems based on Asterisk. It will have at least two elements in Software Structure: a billing daemon and a Manager Iterface.
+### Description ###
+A billing to PBX Systems based on Asterisk.
 
-The Billing Daemon will be compatible with any Asterisk System over 1X version and work independent from the Manager Interface, having an API to communicate with it.
+The Billing Daemon will be compatible with any Asterisk System over 10+ version and work independent from the Manager Interface, having an API to communicate with it.
 
-The Manager Interface will be compatible with SNEP 3.X version and works like a SNEP module, but the Billing Daemon will allow you developer your own frontend for any PBX Frontend Systems, reading the data directly from the database or developing one webservice to receive the webhook from the daemon after every call with a JSON bill.
+The Billing API allow you developer your own frontend for any PBX Frontend Systems, reading the data directly from the database, getting CDR from the API or developing one webservice to receive the webhook from the daemon after every call with a JSON bill.
 
-The Billing Daemon will have the capacity to send to an external Webhook all bills, creating the capability to intergrate with any Application.
+The Billing Daemon has the capacity to send to an external Webhook all bills, creating the capability to intergrate with any Application.
 
 
 ### Preparing the Environment ###
 
+#### Requirements ####
 
+- node
+- mongo
+- mysql (optional)
+
+#### Installing ####
 To run it you will need install node and some dependecies.
 
 If you use Debian based systems, just do this:
@@ -31,6 +37,7 @@ cd asterisk-billing
 ```
 
 Edit config/default.json and set your asterisk and database credentials:
+**PS.: You can use as database: mongo, mysql**
 ```
 "asterisk": {
   "amihost": "127.0.0.1",
@@ -38,11 +45,21 @@ Edit config/default.json and set your asterisk and database credentials:
   "amiuser": "snep",
   "amipassword": "sneppass"
 },
-"database": {
+"database":"mongo",
+"mysql": {
   "host": "localhost",
   "user": "snep",
   "password": "sneppass",
   "database": "abilling"
+},
+"mongo": {
+  "host":"localhost",
+  "port":"27017",
+  "db": "abilling",
+  "collections": {
+    "cdr": "cdr",
+    "callflow": "callflow"
+  }
 }
 ```
 

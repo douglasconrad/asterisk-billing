@@ -14,7 +14,11 @@
       "host": "localhost",
       "user": "snep",
       "password": "sneppass",
-      "database": "abilling"
+      "database": "abilling",
+      "tables":{
+        "callflow":"callflow",
+        "cdr":"cdr"
+      }
     },
     "mongo": {
       "host":"localhost",
