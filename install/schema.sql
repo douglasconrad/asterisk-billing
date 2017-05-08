@@ -1,6 +1,6 @@
-CREATE DATABASE billing;
+CREATE DATABASE abilling;
 
-USE billing;
+USE abilling;
 
 CREATE TABLE IF NOT EXISTS `cdr` (
   `id` INTEGER PRIMARY KEY AUTO_INCREMENT,

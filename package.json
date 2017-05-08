@@ -34,6 +34,7 @@
     "fs": "latest",
     "http": "latest",
     "ini": "latest",
+    "mongoose": "^4.9.8",
     "node-datetime": "latest",
     "q": "latest",
     "request": "latest",

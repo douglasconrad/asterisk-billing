@@ -42,7 +42,7 @@ Edit config/default.json and set your asterisk and database credentials:
   "host": "localhost",
   "user": "snep",
   "password": "sneppass",
-  "database": "billing"
+  "database": "abilling"
 }
 ```
 

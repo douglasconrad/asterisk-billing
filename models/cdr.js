@@ -6,8 +6,7 @@ var cdrSchema = mongoose.Schema({
 
     uuid: {
         type: String,
-        required:true,
-        unique: true
+        required:false
     },
     callid: {
       type: String,
